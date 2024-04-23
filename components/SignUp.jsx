@@ -34,9 +34,10 @@ export default function AboutPage() {
         const user = userCredential.user
         const userInfo = {
             id: userCredential.user.uid,
-            username: username
+            username: username,
+            todoList: []
         }
-        const newUser = await addDoc(users, userInfo)
+        const newUser = await setDoc(users, userInfo)
         localStorage.setItem("token", user.accessToken)
         localStorage.setItem("user", JSON.stringify(user))
         navigate("/Inside")

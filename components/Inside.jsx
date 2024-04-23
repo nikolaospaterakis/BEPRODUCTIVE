@@ -1,11 +1,13 @@
+
 import React from "react"
 import { signOut } from "firebase/auth"
-import { auth } from "../firebase/firebase"
+import { auth, users, db } from "../firebase/firebase"
 import { useNavigate, Link } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGgCircle } from '@fortawesome/free-brands-svg-icons'
 import ToDoList from "./ToDoList"
 import { nanoid } from "nanoid"
+import { addDoc, collection, doc, getDocs, onSnapshot, query, where, setDoc } from "firebase/firestore"
 
 //          <FontAwesomeIcon icon={faGgCircle}/>
 
@@ -22,18 +24,27 @@ export default function Layout() {
         localStorage.removeItem("user")
         navigate("/LogIn")
     }
-   
+    
     const pass =  localStorage.getItem("token")
+    const user = JSON.parse(localStorage.getItem("user"))
+    
+    setDoc(doc(users, "id"), {
+        name: "San Francisco", state: "CA", country: "USA",
+        capital: false, population: 860000,
+        regions: ["west_coast", "norcal"] })
+    
 
-    function newToDo(){
+    async function newToDo(){
         const newToDo = {
             id: nanoid(),
             title: title,
             isFinished: false
         }
-        setToDoList(prevToDo => [newToDo, ...prevToDo])
+        setToDoList(prevToDo => [...prevToDo, newToDo ])
         setTxt("")
     }
+
+
 
     function handleChange(value){
         setTitle(value)
@@ -66,7 +77,7 @@ export default function Layout() {
                     deleteIt={deleteIt}
                 />
             </div>
-            <button id="out" type="button" onClick={handleLogOut}>Get out...</button>
+            <button id="out" type="button" onClick={handleLogOut}>Log out</button>
         </section>
   ) : <section>
         <FontAwesomeIcon icon={faGgCircle} />
