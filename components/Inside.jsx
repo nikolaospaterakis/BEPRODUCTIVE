@@ -7,6 +7,8 @@ import { faGgCircle } from '@fortawesome/free-brands-svg-icons'
 import ToDoList from "./ToDoList"
 import { nanoid } from "nanoid"
 
+//          <FontAwesomeIcon icon={faGgCircle}/>
+
 export default function Layout() {
     
     const navigate = useNavigate()
@@ -46,11 +48,14 @@ export default function Layout() {
             } : todo
         }))
     }
+
+    function deleteIt(item){
+        setToDoList(oldToDoList => oldToDoList.filter(todo => todo.id !== item.id))
+    }
     
     return pass ? (
         <section id="sec-inside">
-            <h1>You are inside me...</h1>
-            <FontAwesomeIcon icon={faGgCircle}/>
+            <h1>BE PRODUCTIVE</h1>
             <div>
                 <ToDoList 
                     items={toDoList}
@@ -58,6 +63,7 @@ export default function Layout() {
                     addItem={newToDo}
                     reverseIt={finishIt}
                     handleChange={(event) => handleChange(event.target.value)}
+                    deleteIt={deleteIt}
                 />
             </div>
             <button id="out" type="button" onClick={handleLogOut}>Get out...</button>
