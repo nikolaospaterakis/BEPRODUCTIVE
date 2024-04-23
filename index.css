@@ -1,18 +1,18 @@
 @font-face {
     font-family: awesome;
-    src: url("./fonts/youaregone.otf");
+    src: url("./fonts/Shitake.otf");
 }
 
 @keyframes glow {
-    0% {color: white;}
-    50% {color: #ffee32;}
-    100% {color: white;}
+    0% {color: #03071e;}
+    50% {color: #000000;}
+    100% {color: #03071e;}
 }
 
 @keyframes border-glow {
-    0% {border-color: gray;}
-    50% {border-color: #ffee32;}
-    100% {border-color: gray;}
+    0% {border-color: #03071e;}
+    50% {border-color: #000000;}
+    100% {border-color: #03071e;}
 }
 
 * {
@@ -24,8 +24,9 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     background: #27292c;
-    color: white;
+    color: #03071e;
     text-align: center;
+    background-image: url("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzZrZTIyZzAzeXNlYzV4endjOTl3MTRrd2dybTU2cXRjaHNtYWxvbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/HCuv0T4T8AMtW/giphy.gif");
 }
 
 h1 {
@@ -33,13 +34,13 @@ h1 {
 }
 
 a {
-    color: whitesmoke;
+    color: black;
 }
 
 .footer {
     display: flex;
     flex-direction: column;
-    font-size: 1.7em;
+    font-size: 1.9em;
     position: absolute;
     bottom: 8vh;   
     width: 100%;
@@ -56,11 +57,15 @@ a {
     padding: .2em;
     width: 180px;
     margin: 0 auto;
+    text-shadow: 0px 0px 1px black;
+    border: 2px solid black;
+    border-radius: .4em;
+    background-color: white;
 }
 
 .footer .link:hover{
     letter-spacing: 0.2em;
-    border-bottom: 4px solid #ffee32;
+    border-bottom: 4px solid #000000;
 }
 
 section h3 {
@@ -68,30 +73,36 @@ section h3 {
 }
 
 .link-ref {
-    color: #ffee32;
+    color: #14213d;
     text-decoration: none;
     padding-bottom: .1em;
-    border-bottom: 2px solid #ffee32;
+    border-bottom: 2px solid #14213d;
 }
 
 .link-ref:hover {
-    color: #fae588;
-    border-color: #fae588;
+    color: #000000;
+    border-color: #000000;
 }
 
 #welcome-main h1 {
-    margin-top: 4rem;
-    font-size: 2.2em;
+    margin: 2em auto 0 auto;
+    font-size: 2.6em;
     letter-spacing: 0.1em;
     animation: glow 4s infinite;
     transition: ease-in-out;
+    text-shadow: 0px 0px 1px black;
+    background-color: white;
+    width: 80%;
+    border-radius: 1em;
+    border: 2px solid black;
+    padding: .2em 0;
 }
 
 #welcome-main img {
-    margin-top: 2rem;
-    width: 200px;
+    margin-top: 4rem;
+    width: 220px;
     border-radius: 100%;
-    border: 5px solid gray;
+    border: 2px solid #14213d;
     animation: border-glow 4s infinite;
     transition: ease-in-out;
 }
@@ -141,7 +152,7 @@ form {
 }
 
 form label {
-    font-size: 1.8em;
+    font-size: 2em;
     animation: glow 4s infinite;
     transition: ease-in-out;
     letter-spacing: .1em;
@@ -190,7 +201,7 @@ form input:focus {
 }
 
 form input:hover {
-    border: 2px solid #ffee32;
+    border: 2px solid #14213d;
 }
 
 form button:hover,
@@ -226,4 +237,45 @@ section h2 {
 
 .to-do {
     color: red;
+}
+
+.todo-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.todo-item {
+    font-size: 2em;
+    cursor: pointer;
+    letter-spacing: .1em;
+}
+
+.todo-nocontent {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+.todo-nocontent div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icon-plus {
+    border: 1px solid black;
+    padding: .7em;
+    border-radius: 1em;
+}
+
+#title {
+    padding: .3em;
+    margin-right: .5em;
+    border-radius: .5em;
+}
+
+#title:focus {
+    outline: none;
 }
