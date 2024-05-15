@@ -1,5 +1,5 @@
 
-import React from "react"
+import React, { useEffect } from "react"
 import { signOut } from "firebase/auth"
 import { auth, users, db } from "../firebase/firebase"
 import { useNavigate, Link } from "react-router-dom"
@@ -7,14 +7,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGgCircle } from '@fortawesome/free-brands-svg-icons'
 import ToDoList from "./ToDoList"
 import { nanoid } from "nanoid"
-import { addDoc, collection, doc, getDocs, onSnapshot, query, where, setDoc } from "firebase/firestore"
+import { addDoc, collection, doc, getDocs, onSnapshot, query, where, setDoc, updateDoc } from "firebase/firestore"
 
 //          <FontAwesomeIcon icon={faGgCircle}/>
 
 export default function Layout() {
+
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"))
     
     const navigate = useNavigate()
-    const [toDoList, setToDoList] = React.useState([])
+    const [toDoList, setToDoList] = React.useState(() => {
+        return userInfo ? userInfo.todoList : []
+    })
+    const [username, setUsername] = React.useState(() => {
+        return userInfo ? userInfo.username : []
+    })
+    const [id, setId] = React.useState("")
     const [title, setTitle] = React.useState("")
     const [txt, setTxt] = React.useState("")
 
@@ -22,17 +30,24 @@ export default function Layout() {
         await signOut(auth)
         localStorage.removeItem("token")
         localStorage.removeItem("user")
+        localStorage.removeItem("userInfo")
         navigate("/LogIn")
     }
     
     const pass =  localStorage.getItem("token")
     const user = JSON.parse(localStorage.getItem("user"))
-    
-    setDoc(doc(users, "id"), {
-        name: "San Francisco", state: "CA", country: "USA",
-        capital: false, population: 860000,
-        regions: ["west_coast", "norcal"] })
-    
+    React.useEffect(() => {
+        const usersRef = collection(db, "users")
+        const q = query(usersRef, where("email", "==", `${email}`))
+        
+        onSnapshot(q, (snapshot) => {
+            snapshot.docs.forEach((doc) => {
+                localStorage.setItem("userInfo", JSON.stringify(doc.data())) 
+                setId(doc.id)
+            })
+        })
+    }, [userInfo])
+    const email = user.email
 
     async function newToDo(){
         const newToDo = {
@@ -44,7 +59,14 @@ export default function Layout() {
         setTxt("")
     }
 
+    async function updateToDo(item){
+        const docRef = doc(db, 'users', `${id}`)
+        updateDoc(docRef, {
+            todoList: toDoList
+        })
+    }
 
+    updateToDo(toDoList)
 
     function handleChange(value){
         setTitle(value)
