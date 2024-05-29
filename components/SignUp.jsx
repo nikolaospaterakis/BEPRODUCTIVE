@@ -26,7 +26,7 @@ export default function AboutPage() {
   }
 
   const handleSubmit = async (event) => {
-    console.log(`username: ${username} password: ${password} email: ${email}`)
+    //console.log(`username: ${username} password: ${password} email: ${email}`)
     event.preventDefault()
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password)

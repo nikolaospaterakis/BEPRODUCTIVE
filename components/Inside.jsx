@@ -13,15 +13,12 @@ import { addDoc, collection, doc, getDocs, onSnapshot, query, where, setDoc, upd
 
 export default function Layout() {
 
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"))
-    
+    const usersRef = collection(db, "users")
+    const pass =  localStorage.getItem("token")
+    const user = JSON.parse(localStorage.getItem("user"))
+
     const navigate = useNavigate()
-    const [toDoList, setToDoList] = React.useState(() => {
-        return userInfo ? userInfo.todoList : []
-    })
-    const [username, setUsername] = React.useState(() => {
-        return userInfo ? userInfo.username : []
-    })
+    const [toDoList, setToDoList] = React.useState([])
     const [id, setId] = React.useState("")
     const [title, setTitle] = React.useState("")
     const [txt, setTxt] = React.useState("")
@@ -30,23 +27,21 @@ export default function Layout() {
         await signOut(auth)
         localStorage.removeItem("token")
         localStorage.removeItem("user")
-        localStorage.removeItem("userInfo")
         navigate("/LogIn")
     }
     
-    const pass =  localStorage.getItem("token")
-    const user = JSON.parse(localStorage.getItem("user"))
+    
     React.useEffect(() => {
-        const usersRef = collection(db, "users")
         const q = query(usersRef, where("email", "==", `${email}`))
-        
         onSnapshot(q, (snapshot) => {
             snapshot.docs.forEach((doc) => {
-                localStorage.setItem("userInfo", JSON.stringify(doc.data())) 
                 setId(doc.id)
+                setToDoList(doc.data().todoList)
             })
         })
-    }, [userInfo])
+        
+    }, [toDoList.length])
+
     const email = user.email
 
     async function newToDo(){

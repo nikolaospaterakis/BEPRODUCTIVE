@@ -16,11 +16,11 @@ export default function AboutPage() {
   }
 
   const handleSubmit = async (event) => {
-    console.log(`email: ${email} password: ${password}`)
+    //console.log(`email: ${email} password: ${password}`)
     event.preventDefault()
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password)
-        console.log(userCredential)
+        //console.log(userCredential)
         const user = userCredential.user
         user.accesToken = true
         localStorage.setItem("token", user.accesToken)
