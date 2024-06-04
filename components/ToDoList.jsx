@@ -1,6 +1,6 @@
 import React from "react"
 import { faSquareMinus } from "@fortawesome/free-regular-svg-icons"
-import { faPlus } from "@fortawesome/free-solid-svg-icons"
+import { faPlus, faStar } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function ToDoList(props){
@@ -11,10 +11,15 @@ export default function ToDoList(props){
             textDecorationLine: item.isFinished ? "line-through" : "none"
         }
 
+        const starStyles  = {
+            color: item.isFavorite ? "gold" : "grey"
+        }
+
         return (
             <div className="todo-items" key={item.id}>
                 <p className="todo-item" style={styles} onClick={() => props.reverseIt(item)}>{item.title}</p>
                 <FontAwesomeIcon className="icon-minus" icon={faSquareMinus} onClick={() => props.deleteIt(item)} />
+                <FontAwesomeIcon className="icon-star" style={starStyles} icon={faStar} onClick={() => props.favoreIt(item)}/>
             </div>
         )
     })
