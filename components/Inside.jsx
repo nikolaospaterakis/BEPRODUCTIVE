@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGgCircle } from '@fortawesome/free-brands-svg-icons'
 import ToDoList from "./ToDoList"
 import { nanoid } from "nanoid"
-import { addDoc, collection, doc, getDocs, onSnapshot, query, where, setDoc, updateDoc } from "firebase/firestore"
+import { addDoc, collection, doc, getDocs, onSnapshot, query, where, setDoc, updateDoc, getDoc } from "firebase/firestore"
 import { async } from "@firebase/util"
 
 //          <FontAwesomeIcon icon={faGgCircle}/>
@@ -58,33 +58,38 @@ export default function Layout() {
         setTxt("")
     }
 
-    async function updateToDo(){
+    async function updateBase(){
         const docRef = doc(db, 'users', `${id}`)
         updateDoc(docRef, {
-            todoList: toDoList
+            todoList: toDoList,
+            favoriteList: favoriteList
         })
     }
 
-    async function updateFavoriteList(item){
-        const docRef = doc(db, 'users', `${id}`)
-        const possibleFavorite = {
-            title: item.title,
-            id: item.id,
-            isFavorite: item.isFavorite,
-            isFinished: item.isFinished
-        }
-        if (favoriteList.length > 0) {
-            console.log(favoriteList)
+    function updateFavoriteList(item){
+        let exists = false
+        const wantedFav = favoriteList.filter(fav => {
+            return fav.id === item.id ? fav : ""
+       })
+        wantedFav.length > 0 ? (
+            exists = !exists
+        ) : ""
+        
+        if(exists){
+            setFavoriteList(oldFavoriteList => oldFavoriteList.filter(fav => fav.id !== item.id))
         } else {
-            console.log("Nothing here")
-            setFavoriteList(prevFavList => [...prevFavList, possibleFavorite ])
-            updateDoc(docRef, {
-                favoriteList: favoriteList
-            })
+            setFavoriteList(oldFavoriteList => [...oldFavoriteList, {
+                id: item.id,
+                isFavorite: true,
+                isFinished: item.isFinished,
+                title: item.title
+            } ])
         }
+        
     }
 
-    updateToDo()
+
+    updateBase()
 
     function handleChange(value){
         setTitle(value)
@@ -120,6 +125,7 @@ export default function Layout() {
             <div>
                 <ToDoList 
                     items={toDoList}
+                    favItems={favoriteList}
                     txt={txt}
                     addItem={newToDo}
                     reverseIt={finishIt}

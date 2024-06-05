@@ -24,12 +24,24 @@ export default function ToDoList(props){
         )
     })
 
+    const favElements = props.favItems.map(item => {
+        return (
+            <p>{item.title}</p>
+        )
+    })
+
     return toDoElements.length > 0 ? (
         <div className="todo-withcontent">
             {toDoElements}
             <div>
                 <input value={props.txt} className="input-title" id="title" name="title" type="text" onChange={props.handleChange}/>
                 <FontAwesomeIcon className="icon-plus" icon={faPlus} onClick={props.addItem}/>
+            </div>
+            <div className="favList">
+                <h3>Add from favorites</h3>
+                <div className="favList-items">
+                    {favElements}
+                </div>
             </div>
         </div>
     ) : (
