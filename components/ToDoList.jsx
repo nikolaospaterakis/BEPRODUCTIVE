@@ -58,11 +58,13 @@ export default function ToDoList(props){
                 }}>
                     Add from favorites
                 </h3>
-            <div className="favList" style={favStyles}>
+            {showFav ? (
+                <div className="favList" style={favStyles}>
                 <div className="favList-items" style={favItemsStyle}>
                     {favElements}
                 </div>
             </div>
+            ) : null}
         </div>
     ) : (
         <div className="todo-nocontent">
