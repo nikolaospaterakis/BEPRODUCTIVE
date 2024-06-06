@@ -13,7 +13,8 @@ export default function ToDoList(props){
 
     const favStyles = {
         overflowY: showFav ? "scroll" : "none",
-        height: "15em",
+        minHeight: "5em",
+        maxHeight: "15em",
         scrollbarWidth: "thin",
         scrollbarColor: "gold white"
     }
@@ -73,6 +74,18 @@ export default function ToDoList(props){
                 <input value={props.txt} className="input-title" id="title" name="title" type="text" onChange={props.handleChange}/>
                 <FontAwesomeIcon className="icon-plus" icon={faPlus} onClick={props.addItem}/>
             </div>
+            <h3 onClick={() => {
+                    setShowFav(prevValue => !prevValue)
+                }}>
+                    Add from favorites
+                </h3>
+            {showFav ? (
+                <div className="favList" style={favStyles}>
+                <div className="favList-items" style={favItemsStyle}>
+                    {favElements}
+                </div>
+            </div>
+            ) : null}
         </div>
     )
 }
