@@ -80,7 +80,7 @@ section h3 {
 }
 
 #welcome-main h1 {
-    margin: 1.2em auto 0 auto;
+    margin: .4em auto 0 auto;
     font-size: 2.6em;
     letter-spacing: 0.1em;
     animation: glow 4s infinite;
@@ -143,7 +143,7 @@ form {
     padding: 2rem;
     box-sizing: border-box;
     align-items: center;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 form label {
@@ -317,26 +317,28 @@ section h2 {
     align-items: center;
 }
 
+.todo-withcontent h3 {
+    font-size: 1.8em;
+    letter-spacing: .12em;
+    margin-top: 1em;
+    position: relative;
+}
+
 .favList {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 15em;
+}
+
+.favList-items {
     display: flex;
     flex-direction: column;
     gap: 1em;
 }
 
-.favList h3 {
-    font-size: 1.6em;
-    letter-spacing: .1em;
-}
-
-.favList-items {
-    display: grid;
-    grid-gap: 5px;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    grid-auto-rows: auto;
-    grid-auto-flow: dense;
-}
-
 .favList-items p {
+    margin-top: .5em;
     color: black;
     border: 3px solid black;
     padding: .7em;

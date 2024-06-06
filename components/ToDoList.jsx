@@ -5,6 +5,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function ToDoList(props){
 
+    const [showFav, setShowFav] = React.useState(false)
+
+    const favItemsStyle = {
+        display: showFav ? "flex" : "none"
+    }
+
+    const favStyles = {
+        overflowY: showFav ? "scroll" : "none",
+        height: "15em",
+        scrollbarWidth: "thin",
+        scrollbarColor: "gold white"
+    }
+
+
     const toDoElements = props.items.map(item => {
         
         const styles = {
@@ -26,7 +40,9 @@ export default function ToDoList(props){
 
     const favElements = props.favItems.map(item => {
         return (
-            <p>{item.title}</p>
+            <div key={item.id}>
+                <p onClick={() => props.addFromFavToList(item)}>{item.title}</p>
+            </div>
         )
     })
 
@@ -37,9 +53,13 @@ export default function ToDoList(props){
                 <input value={props.txt} className="input-title" id="title" name="title" type="text" onChange={props.handleChange}/>
                 <FontAwesomeIcon className="icon-plus" icon={faPlus} onClick={props.addItem}/>
             </div>
-            <div className="favList">
-                <h3>Add from favorites</h3>
-                <div className="favList-items">
+            <h3 onClick={() => {
+                    setShowFav(prevValue => !prevValue)
+                }}>
+                    Add from favorites
+                </h3>
+            <div className="favList" style={favStyles}>
+                <div className="favList-items" style={favItemsStyle}>
                     {favElements}
                 </div>
             </div>

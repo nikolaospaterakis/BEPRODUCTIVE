@@ -81,15 +81,12 @@ export default function Layout() {
             setFavoriteList(oldFavoriteList => [...oldFavoriteList, {
                 id: item.id,
                 isFavorite: true,
-                isFinished: item.isFinished,
+                isFinished: false,
                 title: item.title
             } ])
         }
         
     }
-
-
-    updateBase()
 
     function handleChange(value){
         setTitle(value)
@@ -118,6 +115,15 @@ export default function Layout() {
         }))
         updateFavoriteList(item)
     }
+
+    function addFromFavToList(item){
+        const doesExist = toDoList.filter(todo => todo.id === item.id)
+        doesExist.length > 0 
+            ? console.log("It already exists") 
+            : setToDoList(prevToDo => [...prevToDo, item ])
+    }
+
+    updateBase()
     
     return pass ? (
         <section id="sec-inside">
@@ -132,6 +138,7 @@ export default function Layout() {
                     handleChange={(event) => handleChange(event.target.value)}
                     deleteIt={deleteIt}
                     favoreIt={favoreIt}
+                    addFromFavToList={addFromFavToList}
                 />
             </div>
             <button id="out" type="button" onClick={handleLogOut}>Log out</button>
