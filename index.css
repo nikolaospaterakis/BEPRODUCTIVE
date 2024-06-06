@@ -3,22 +3,13 @@
     src: url("./fonts/Shitake.otf");
 }
 
-@keyframes glow {
-    0% {color: #03071e;}
-    50% {color: #000000;}
-    100% {color: #03071e;}
-}
-
-@keyframes border-glow {
-    0% {border-color: #03071e;}
-    50% {border-color: #000000;}
-    100% {border-color: #03071e;}
-}
 
 * {
     margin: 0;
     padding: 0;
     font-family: awesome;
+    user-select: none;
+    box-sizing: border-box;
 }
 
 body {
@@ -70,22 +61,26 @@ a {
 
 section h3 {
     margin-top: 2em;
+    text-shadow: 0px 0px 1px black;
+    letter-spacing: .02em;
+    font-size: 1.3em;
+    color: #03071e;
 }
 
 .link-ref {
-    color: #14213d;
+    color: #03071e;
     text-decoration: none;
     padding-bottom: .1em;
-    border-bottom: 2px solid #14213d;
+    border-bottom: 2px solid #03071e;
 }
 
 .link-ref:hover {
-    color: #000000;
-    border-color: #000000;
+    color: #3d5a80;
+    border-color: #3d5a80;
 }
 
 #welcome-main h1 {
-    margin: 2em auto 0 auto;
+    margin: 1.2em auto 0 auto;
     font-size: 2.6em;
     letter-spacing: 0.1em;
     animation: glow 4s infinite;
@@ -164,6 +159,7 @@ form input {
     border-radius: 2em;
     font-family: awesome;
     text-transform: lowercase;
+    border: 2px solid black;
 }
 
 form button,
@@ -171,7 +167,7 @@ form button,
     font-size: 1.2em;
     padding: .8rem 2rem;
     border-radius: 1em;
-    border: 2px solid;
+    border: 2px #14213d solid;
     margin-top: 1em;
     animation: border-glow 4s infinite;
     transition: ease-in-out;
@@ -201,7 +197,7 @@ form input:focus {
 }
 
 form input:hover {
-    border: 2px solid #14213d;
+    border: 2px solid #3d5a80;
 }
 
 form button:hover,
@@ -243,6 +239,20 @@ section h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1em;
+}
+
+.icon-minus {
+    font-size: 2em;
+    background-color: white;
+}
+
+.icon-minus, .icon-plus, .icon-star {
+    transition: 1s;
+}
+
+.icon-minus:hover, .icon-plus:hover, .icon-star:hover {
+    transform: rotate(90deg);
 }
 
 .todo-item {
@@ -256,6 +266,7 @@ section h2 {
     display: flex;
     flex-direction: column;
     gap: 2em;
+    margin-top: -8em;
 }
 
 .todo-nocontent div {
@@ -265,17 +276,76 @@ section h2 {
 }
 
 .icon-plus {
-    border: 1px solid black;
+    border: 2px solid black;
     padding: .7em;
     border-radius: 1em;
+    font-size: 1.2em;
+    background-color: white;
 }
 
-#title {
+.icon-plus:hover, .icon-star:hover {
+    cursor: pointer;
+}
+
+.icon-star {
+    font-size: 1.3em;
+}
+
+.input-title {
     padding: .3em;
     margin-right: .5em;
     border-radius: .5em;
+    border: 2px solid black;
 }
 
-#title:focus {
+.input-title:focus {
     outline: none;
+}
+
+.todo-withcontent {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    gap: 1em;
+    align-items: center;
+}
+
+.todo-withcontent div {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 .5em;
+    align-items: center;
+}
+
+.favList {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.favList h3 {
+    font-size: 1.6em;
+    letter-spacing: .1em;
+}
+
+.favList-items {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-auto-rows: auto;
+    grid-auto-flow: dense;
+}
+
+.favList-items p {
+    color: black;
+    border: 3px solid black;
+    padding: .7em;
+    border-radius: 1em;
+    background-color: white;
+    font-size: 1.3em;
+}
+
+.favList-items p:hover {
+    border-left-color: gold;
+    border-bottom-color: gold;
 }
