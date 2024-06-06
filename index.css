@@ -266,7 +266,8 @@ section h2 {
     display: flex;
     flex-direction: column;
     gap: 2em;
-    margin-top: -8em;
+    margin-top: -2em;
+    align-items: center;
 }
 
 .todo-nocontent div {
@@ -317,7 +318,7 @@ section h2 {
     align-items: center;
 }
 
-.todo-withcontent h3 {
+.todo-withcontent h3, .todo-nocontent h3 {
     font-size: 1.8em;
     letter-spacing: .12em;
     margin-top: 1em;
