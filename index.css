@@ -239,7 +239,7 @@ section h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1em;
+    gap: .6em;
 }
 
 .icon-minus {
@@ -290,6 +290,20 @@ section h2 {
 
 .icon-star {
     font-size: 1.3em;
+}
+
+.icon-play {
+    font-size: 2em;
+    background-color: white;
+    transition: 1s;
+    transition-property: transform;
+    padding: .2em;
+    border-radius: 1em;
+    border: 3px solid transparent;
+}
+
+.icon-play:hover {
+    border: 3px solid black;
 }
 
 .input-title {
@@ -351,4 +365,8 @@ section h2 {
 .favList-items p:hover {
     border-left-color: gold;
     border-bottom-color: gold;
+}
+
+.seconds {
+    font-size: 1.6em;
 }

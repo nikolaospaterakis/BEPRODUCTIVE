@@ -24,6 +24,8 @@ export default function Layout() {
     const [id, setId] = React.useState("")
     const [title, setTitle] = React.useState("")
     const [txt, setTxt] = React.useState("")
+    const [timerOn, setTimerOn] = React.useState(false)
+    const [duration, setDuration] = React.useState(0)
 
     const handleLogOut = async (event) => {
         await signOut(auth)
@@ -52,7 +54,9 @@ export default function Layout() {
             id: nanoid(),
             title: title,
             isFinished: false,
-            isFavorite: false
+            isFavorite: false,
+            isOn: false,
+            duration: duration
         }
         setToDoList(prevToDo => [...prevToDo, newToDo ])
         setTxt("")
@@ -82,7 +86,8 @@ export default function Layout() {
                 id: item.id,
                 isFavorite: true,
                 isFinished: false,
-                title: item.title
+                title: item.title,
+                isOn: false
             } ])
         }
         
@@ -123,6 +128,16 @@ export default function Layout() {
             : setToDoList(prevToDo => [...prevToDo, item ])
     }
 
+    function reverseIt(item){
+        setToDoList(oldToDoList => oldToDoList.map(todo => {
+            return todo.id === item.id ? {
+                ...item,
+                isOn: !item.isOn
+            } : todo
+        }))
+    }
+    
+
     updateBase()
     
     return pass ? (
@@ -134,11 +149,13 @@ export default function Layout() {
                     favItems={favoriteList}
                     txt={txt}
                     addItem={newToDo}
-                    reverseIt={finishIt}
+                    finishIt={finishIt}
                     handleChange={(event) => handleChange(event.target.value)}
                     deleteIt={deleteIt}
                     favoreIt={favoreIt}
                     addFromFavToList={addFromFavToList}
+                    timerOn={timerOn}
+                    reverseIt={reverseIt}
                 />
             </div>
             <button id="out" type="button" onClick={handleLogOut}>Log out</button>

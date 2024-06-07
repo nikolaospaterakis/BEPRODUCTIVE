@@ -1,7 +1,8 @@
 import React from "react"
-import { faSquareMinus } from "@fortawesome/free-regular-svg-icons"
+import { faSquareMinus, faCirclePlay } from "@fortawesome/free-regular-svg-icons"
 import { faPlus, faStar } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Timer from "./Timer"
 
 export default function ToDoList(props){
 
@@ -19,6 +20,19 @@ export default function ToDoList(props){
         scrollbarColor: "gold white"
     }
 
+    const duration = function calculateTime(time){
+        let minutes = Math.floor(time / 60)
+        let seconds = time % 60
+        return `${ minutes < 10 
+                    ? "0" 
+                    : ""
+                }${minutes}m
+                :${ seconds < 10 
+                    ? " 0" 
+                    : ""
+                }${seconds}s`
+    }
+
 
     const toDoElements = props.items.map(item => {
         
@@ -30,11 +44,32 @@ export default function ToDoList(props){
             color: item.isFavorite ? "gold" : "grey"
         }
 
+        const playStyles = {
+            transform: item.isOn ? "rotate(-0.5turn)" : "none"
+        }
+
+        item.isOn ? (
+            setInterval(() => {
+                item.duration++
+                React.forceUpdate()
+            }, 1000)
+        ) : clearInterval
+
         return (
             <div className="todo-items" key={item.id}>
-                <p className="todo-item" style={styles} onClick={() => props.reverseIt(item)}>{item.title}</p>
-                <FontAwesomeIcon className="icon-minus" icon={faSquareMinus} onClick={() => props.deleteIt(item)} />
                 <FontAwesomeIcon className="icon-star" style={starStyles} icon={faStar} onClick={() => props.favoreIt(item)}/>
+                <FontAwesomeIcon className="icon-minus" icon={faSquareMinus} onClick={() => props.deleteIt(item)} />
+                <p className="todo-item" style={styles} onClick={() => props.finishIt(item)}>{item.title}</p>
+                {item.isOn 
+                    ? <Timer 
+                        duration={item.duration}
+                        durationFunc={duration}
+                        /> 
+                    : null}
+                <FontAwesomeIcon className="icon-play" icon={faCirclePlay} 
+                    onClick={() => props.reverseIt(item)}
+                    style={playStyles}
+                />
             </div>
         )
     })
