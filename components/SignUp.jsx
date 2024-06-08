@@ -36,7 +36,8 @@ export default function AboutPage() {
             email: userCredential.user.email,
             username: username,
             todoList: [],
-            favoriteList: []
+            favoriteList: [],
+            completedList: []
         }
         const newUser = await addDoc(users, userInfo)
         localStorage.setItem("token", user.accessToken)

@@ -1,5 +1,5 @@
 import React from "react"
-import { faSquareMinus, faCirclePlay } from "@fortawesome/free-regular-svg-icons"
+import { faSquareMinus, faCirclePlay, faSquareCheck } from "@fortawesome/free-regular-svg-icons"
 import { faPlus, faStar } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Timer from "./Timer"
@@ -51,14 +51,15 @@ export default function ToDoList(props){
         item.isOn ? (
             setInterval(() => {
                 item.duration++
-                React.forceUpdate()
             }, 1000)
         ) : clearInterval
 
         return (
             <div className="todo-items" key={item.id}>
                 <FontAwesomeIcon className="icon-star" style={starStyles} icon={faStar} onClick={() => props.favoreIt(item)}/>
-                <FontAwesomeIcon className="icon-minus" icon={faSquareMinus} onClick={() => props.deleteIt(item)} />
+                {item.isFinished 
+                    ? <FontAwesomeIcon className="icon-done" icon={faSquareCheck} onClick={() => props.deleteIt(item)} />  
+                    : <FontAwesomeIcon className="icon-minus" icon={faSquareMinus} onClick={() => props.deleteIt(item)} />}
                 <p className="todo-item" style={styles} onClick={() => props.finishIt(item)}>{item.title}</p>
                 {item.isOn 
                     ? <Timer 

@@ -38,7 +38,7 @@ export default function AboutPage() {
             <label>
                 Email
             </label>
-            <input name="email" type="email" placeholder="awesome@gamil.com" onChange={handleChange}/>
+            <input name="email" type="email" placeholder="awesome@gmail.com" onChange={handleChange}/>
             <label>
                 Password
             </label>

@@ -28,6 +28,26 @@ a {
     color: black;
 }
 
+.nav {
+    display: grid;
+    width: 100%;
+    padding: .1em 1em .2em 1em;
+    position: fixed;
+    z-index: 1;
+    transition: 1;
+}
+
+.icon-menu {
+    font-size: 2.3em;
+    background-color: white;
+    grid-area: "m";
+}
+
+
+.nav h1 {
+    grid-area: "t";
+}
+
 .footer {
     display: flex;
     flex-direction: column;
@@ -81,7 +101,7 @@ section h3 {
 
 #welcome-main h1 {
     margin: .4em auto 0 auto;
-    font-size: 2.6em;
+    font-size: 1.8em;
     letter-spacing: 0.1em;
     animation: glow 4s infinite;
     transition: ease-in-out;
@@ -179,9 +199,6 @@ form button,
     width: 80%;
 }
 
-#out {
-    width: 50%;
-}
 
 #sec-inside {
     display: flex;
@@ -207,6 +224,10 @@ form button:hover,
 }
 
 section h2 {
+    margin-top: 4em;
+}
+
+.toDoList {
     margin-top: 4em;
 }
 
@@ -242,17 +263,21 @@ section h2 {
     gap: .6em;
 }
 
-.icon-minus {
+.icon-minus, .icon-done {
     font-size: 2em;
     background-color: white;
 }
 
-.icon-minus, .icon-plus, .icon-star {
+.icon-minus, .icon-plus, .icon-star, .icon-done {
     transition: 1s;
 }
 
 .icon-minus:hover, .icon-plus:hover, .icon-star:hover {
     transform: rotate(90deg);
+}
+
+.icon-done:hover {
+    transform: translateY(-0.1em);
 }
 
 .todo-item {

@@ -5,10 +5,12 @@ import { auth, users, db } from "../firebase/firebase"
 import { useNavigate, Link } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGgCircle } from '@fortawesome/free-brands-svg-icons'
+import { faBars } from "@fortawesome/free-solid-svg-icons"
 import ToDoList from "./ToDoList"
 import { nanoid } from "nanoid"
 import { addDoc, collection, doc, getDocs, onSnapshot, query, where, setDoc, updateDoc, getDoc } from "firebase/firestore"
 import { async } from "@firebase/util"
+import { faRectangleXmark } from "@fortawesome/free-regular-svg-icons"
 
 //          <FontAwesomeIcon icon={faGgCircle}/>
 
@@ -21,11 +23,50 @@ export default function Layout() {
     const navigate = useNavigate()
     const [toDoList, setToDoList] = React.useState([])
     const [favoriteList, setFavoriteList] = React.useState([])
+    const [completedList, setCompletedList] = React.useState([])
     const [id, setId] = React.useState("")
     const [title, setTitle] = React.useState("")
     const [txt, setTxt] = React.useState("")
     const [timerOn, setTimerOn] = React.useState(false)
     const [duration, setDuration] = React.useState(0)
+    const [menuOn, setMenuOn] = React.useState(false)
+
+
+    const menuStyle = {
+        backgroundColor: menuOn ? "white" : "transparent",
+        height: menuOn ? "100vh" : "",
+        alignItems: menuOn ? "flex-start" : "center",
+        width: menuOn ? "50%" : "100%",
+        right: menuOn ? "0" : "",
+        flexDirection: menuOn ? "row-reverse" : "row",
+        borderLeft: menuOn ? "2px solid black" : "none",
+        borderRadius: menuOn ? ".5em" : "0",
+        gridTemplateAreas: menuOn 
+            ?   `
+                "m" 
+                "t" 
+                "b" 
+                `
+            : `"t m"`,
+        gridTemplateRows: menuOn ? "1f 10fr 4fr" : "auto",
+        gridTemplateColumns: menuOn ? "auto" : "14fr 1fr",
+    }
+    
+    const menuH1Style = {
+        gridArea: "t",
+        justifySelf: "center"
+    }
+
+    const menuIconStyle = {
+        gridArea: "m"
+    }
+
+    const menuButtonStyle = {
+        gridArea: "b",
+        display: menuOn ? "inline" : "none",
+        alignSelf: "flex-end",
+        justifySelf: "center"
+    }
 
     const handleLogOut = async (event) => {
         await signOut(auth)
@@ -42,6 +83,7 @@ export default function Layout() {
                 setId(doc.id)
                 setToDoList(doc.data().todoList)
                 setFavoriteList(doc.data().favoriteList)
+                setCompletedList(doc.data().completedList)
             })
         })
         
@@ -66,7 +108,8 @@ export default function Layout() {
         const docRef = doc(db, 'users', `${id}`)
         updateDoc(docRef, {
             todoList: toDoList,
-            favoriteList: favoriteList
+            favoriteList: favoriteList,
+            completedList: completedList
         })
     }
 
@@ -108,7 +151,13 @@ export default function Layout() {
     }
 
     function deleteIt(item){
-        setToDoList(oldToDoList => oldToDoList.filter(todo => todo.id !== item.id))
+        console.log(completedList)
+        if(item.isFinished){
+            setCompletedList(oldCompletedList => [...oldCompletedList, item])
+            setToDoList(oldToDoList => oldToDoList.filter(todo => todo.id !== item.id))
+        } else {
+            setToDoList(oldToDoList => oldToDoList.filter(todo => todo.id !== item.id))
+        }
     }
 
     function favoreIt(item){
@@ -124,7 +173,9 @@ export default function Layout() {
     function addFromFavToList(item){
         const doesExist = toDoList.filter(todo => todo.id === item.id)
         doesExist.length > 0 
-            ? console.log("It already exists") 
+            ? (
+                setToDoList(prevToDo => [...prevToDo, item ])
+            )
             : setToDoList(prevToDo => [...prevToDo, item ])
     }
 
@@ -142,8 +193,24 @@ export default function Layout() {
     
     return pass ? (
         <section id="sec-inside">
-            <h1>BE PRODUCTIVE</h1>
-            <div>
+            <div className="nav" style={menuStyle}>
+                <h1 style={menuH1Style}>BE PRODUCTIVE</h1>  
+                {menuOn 
+                    ? <FontAwesomeIcon
+                        style={menuIconStyle} 
+                        icon={faRectangleXmark} 
+                        className="icon-menu" 
+                        onClick={() => setMenuOn(prevValue => !prevValue)} 
+                    /> 
+                    : <FontAwesomeIcon
+                        style={menuIconStyle} 
+                        icon={faBars} 
+                        className="icon-menu" 
+                        onClick={() => setMenuOn(prevValue => !prevValue)}
+                    />}
+                    <button style={menuButtonStyle} id="out" type="button" onClick={handleLogOut}>Log out</button>
+            </div>
+            <div className="toDoList">
                 <ToDoList 
                     items={toDoList}
                     favItems={favoriteList}
@@ -158,7 +225,6 @@ export default function Layout() {
                     reverseIt={reverseIt}
                 />
             </div>
-            <button id="out" type="button" onClick={handleLogOut}>Log out</button>
         </section>
   ) : <section>
         <FontAwesomeIcon icon={faGgCircle} />
