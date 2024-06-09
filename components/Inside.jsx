@@ -34,7 +34,7 @@ export default function Layout() {
 
     const menuStyle = {
         backgroundColor: menuOn ? "white" : "transparent",
-        height: menuOn ? "100vh" : "",
+        height: menuOn ? "100%" : "",
         alignItems: menuOn ? "flex-start" : "center",
         width: menuOn ? "50%" : "100%",
         right: menuOn ? "0" : "",
@@ -50,6 +50,7 @@ export default function Layout() {
             : `"t m"`,
         gridTemplateRows: menuOn ? "1f 10fr 4fr" : "auto",
         gridTemplateColumns: menuOn ? "auto" : "14fr 1fr",
+        paddingBottom : "1em"
     }
     
     const menuH1Style = {
@@ -66,6 +67,10 @@ export default function Layout() {
         display: menuOn ? "inline" : "none",
         alignSelf: "flex-end",
         justifySelf: "center"
+    }
+
+    const menuMyPro = {
+        display: menuOn ? "inline" : "none"
     }
 
     const handleLogOut = async (event) => {
@@ -194,7 +199,10 @@ export default function Layout() {
     return pass ? (
         <section id="sec-inside">
             <div className="nav" style={menuStyle}>
-                <h1 style={menuH1Style}>BE PRODUCTIVE</h1>  
+                <div>
+                    <h1 style={menuH1Style}>BE PRODUCTIVE</h1>     
+                    <Link style={menuMyPro} className="link-to-mypro" to="/MyProductivity">MyProductivity</Link>
+                </div>
                 {menuOn 
                     ? <FontAwesomeIcon
                         style={menuIconStyle} 

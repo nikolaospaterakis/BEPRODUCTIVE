@@ -28,21 +28,6 @@ a {
     color: black;
 }
 
-.nav {
-    display: grid;
-    width: 100%;
-    padding: .1em 1em .2em 1em;
-    position: fixed;
-    z-index: 1;
-    transition: 1;
-}
-
-.icon-menu {
-    font-size: 2.3em;
-    background-color: white;
-    grid-area: "m";
-}
-
 
 .nav h1 {
     grid-area: "t";
@@ -155,6 +140,24 @@ section h3 {
 
 /* Log In Page */
 
+.sec-login {
+    display: grid;
+    grid-template-rows: 4em auto;
+    grid-template-areas: 
+        "t"
+        "c";
+        height: 100vh;
+        box-sizing: border-box;
+        overflow: hidden;
+        padding: 1em;
+}
+
+.sec-login h1 {
+    grid-area: "t";
+    align-self: center;
+}
+
+
 form {
     display: flex;
     flex-direction: column;
@@ -164,6 +167,7 @@ form {
     box-sizing: border-box;
     align-items: center;
     margin-top: 1rem;
+    grid-area: "c";
 }
 
 form label {
@@ -201,11 +205,31 @@ form button,
 
 
 #sec-inside {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template: auto / 1fr auto;
+    grid-template-areas: 
+        "n"
+        "c";
     justify-content: space-between;
     height: 90vh;
     align-items: center;
+}
+
+.nav {
+    grid-area: "n";
+    align-self: flex-start;
+    display: grid;
+    width: 100%;
+    padding: .1em 1em .2em 1em;
+    position: fixed;
+    z-index: 1;
+    transition: 1;
+}
+
+.icon-menu {
+    font-size: 2.3em;
+    background-color: white;
+    grid-area: "m";
 }
 
 form input:focus {
@@ -229,6 +253,8 @@ section h2 {
 
 .toDoList {
     margin-top: 4em;
+    grid-area: c;
+    align-self: flex-start;
 }
 
 .lmust {

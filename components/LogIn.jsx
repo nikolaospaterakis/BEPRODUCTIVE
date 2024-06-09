@@ -32,20 +32,22 @@ export default function AboutPage() {
   }
 
   return (
-    <section>
+    <section className="sec-login">
         <h1>BE PRODUCTIVE</h1>
-        <form>
-            <label>
-                Email
-            </label>
-            <input name="email" type="email" placeholder="awesome@gmail.com" onChange={handleChange}/>
-            <label>
-                Password
-            </label>
-            <input name="password" type="password" placeholder="********" onChange={handleChange}/>
-            <button type="button" onClick={handleSubmit}>Log In</button>
-        </form>
-        <h3>You don't have account yet? <Link className="link-ref" to="/SignUp">click here</Link></h3>
+        <div>
+          <form>
+              <label>
+                  Email
+              </label>
+              <input name="email" type="email" placeholder="awesome@gmail.com" onChange={handleChange}/>
+              <label>
+                  Password
+              </label>
+              <input name="password" type="password" placeholder="********" onChange={handleChange}/>
+              <button type="button" onClick={handleSubmit}>Log In</button>
+          </form>
+          <h3>You don't have account yet? <Link className="link-ref" to="/SignUp">click here</Link></h3>
+        </div>
     </section>
   );
 }

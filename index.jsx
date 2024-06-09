@@ -6,6 +6,7 @@ import Welcome from "./components/Welcome.jsx"
 import LogIn from "./components/LogIn.jsx"
 import SignUp from "./components/SignUp.jsx"
 import Inside from "./components/Inside.jsx"
+import MyPro from "./components/MyPro.jsx"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="LogIn" element={<LogIn />} />
           <Route path="SignUp" element={<SignUp />} />
           <Route path="Inside" element={<Inside />} />
+          <Route path="MyProductivity" element={<MyPro />}/>
         </Route>
       </Routes>
     </BrowserRouter>
