@@ -55,7 +55,8 @@ export default function Layout() {
     
     const menuH1Style = {
         gridArea: "t",
-        justifySelf: "center"
+        justifySelf: "center",
+        fontSize: menuOn ? "1.2em" : "1.8em"
     }
 
     const menuIconStyle = {
@@ -199,7 +200,7 @@ export default function Layout() {
     return pass ? (
         <section id="sec-inside">
             <div className="nav" style={menuStyle}>
-                <div>
+                <div className="inner-menu">
                     <h1 style={menuH1Style}>BE PRODUCTIVE</h1>     
                     <Link style={menuMyPro} className="link-to-mypro" to="/MyProductivity">MyProductivity</Link>
                 </div>

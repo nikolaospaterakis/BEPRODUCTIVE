@@ -232,6 +232,24 @@ form button,
     grid-area: "m";
 }
 
+.inner-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+.link-to-mypro {
+    text-decoration: none;
+    font-size: 1.2em;
+    letter-spacing: .2em;
+    border: 6px solid transparent;
+}
+
+.link-to-mypro:hover {
+    border-left: 6px solid grey;
+    border-right: 6px solid grey;
+}
+
 form input:focus {
     outline: none;
     padding: .8em;
@@ -420,4 +438,11 @@ section h2 {
 
 .seconds {
     font-size: 1.6em;
+}
+
+svg {
+    background-color: #eee;
+    position: absolute;
+    top: 40%;
+    left: 20%;
 }
