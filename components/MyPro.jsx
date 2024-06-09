@@ -25,7 +25,7 @@ export default function MyProductivity(){
     return (
         <section>
             <h1>Your Productivity</h1>
-            <svg ref={svgRef}></svg>
+            <svg className="svg-d" ref={svgRef}></svg>
         </section>
     )
 }
