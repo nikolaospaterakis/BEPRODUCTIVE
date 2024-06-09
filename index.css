@@ -442,7 +442,5 @@ section h2 {
 
 .svg-d {
     background-color: #eee;
-    position: absolute;
-    top: 40%;
-    left: 20%;
+    margin-top: 10em;
 }
