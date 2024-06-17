@@ -157,7 +157,6 @@ export default function Layout() {
     }
 
     function deleteIt(item){
-        console.log(completedList)
         if(item.isFinished){
             setCompletedList(oldCompletedList => [...oldCompletedList, item])
             setToDoList(oldToDoList => oldToDoList.filter(todo => todo.id !== item.id))
