@@ -203,6 +203,7 @@ export default function Layout() {
                 <div className="inner-menu">
                     <h1 style={menuH1Style}>BE PRODUCTIVE</h1>     
                     <Link style={menuMyPro} className="link-to-mypro" to="/MyProductivity">MyProductivity</Link>
+                    <Link style={menuMyPro} className="link-to-mygroup" to="/MyGroup">MyGroup</Link>
                 </div>
                 {menuOn 
                     ? <FontAwesomeIcon

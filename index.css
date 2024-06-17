@@ -238,14 +238,14 @@ form button,
     gap: 2em;
 }
 
-.link-to-mypro {
+.link-to-mypro, .link-to-mygroup {
     text-decoration: none;
     font-size: 1.2em;
     letter-spacing: .2em;
     border: 6px solid transparent;
 }
 
-.link-to-mypro:hover {
+.link-to-mypro:hover, .link-to-mygroup:hover {
     border-left: 6px solid grey;
     border-right: 6px solid grey;
 }
