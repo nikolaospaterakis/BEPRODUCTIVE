@@ -444,3 +444,24 @@ section h2 {
     background-color: #eee;
     margin-top: 10em;
 }
+
+/* Your group page */
+
+.yourgroup-content {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-sizing: border-box;
+    justify-content: space-between;
+    padding-bottom: 1em;
+}
+
+.yourgroup-content > p {
+    font-size: 2em;
+    letter-spacing: .05em;
+    text-shadow: 0 0 1px black;
+}
+
+.yourgroup-content > footer > p {
+    font-size: 1.5em;
+}
